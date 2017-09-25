@@ -16,14 +16,14 @@ class Actions:
         except Exception:
             raise Exception
 
-    def get_status(self):
+    def get_status(self, name_or_id=""):
         try:
-            request = requests.get(self.url + '/status')
+            request = requests.get(self.url + '/status/' + name_or_id)
             return request.json()
         except Exception:
             raise Exception
 
-    def get_apis(self):
+    def get_list_apis(self, id_or_name=''):
         try:
             request = requests.get(self.url + '/apis')
             return request.json()
