@@ -3,7 +3,7 @@ import argparse
 import configparser
 
 from kong_wrapper.actions import Actions
-
+from kong_wrapper.models.api import Api
 
 class KongCli:
 
@@ -30,9 +30,20 @@ class KongCli:
     def apis(self, args):
         try:
             actions = Actions(args.host, args.port)
-            if args.list:
+            if args.operation == 'list':
                 self.show(actions.get_list_apis(args.list))
-            if args.create:
+            if args.operation == 'add':
+                api = Api(args.name, args.hosts, args.upstream_url)
+                api.uris = args.uris
+                api.methods = args.methods
+                api.strip_uri = args.strip_uri
+                api.preserve_host = args.preserve_host
+                api.retries = args.retries
+                api.upstream_connect_timeout = args.upstream_connect_timeout
+                api.upstream_send_timeout = args.upstream_send_timeout
+                api.upstream_read_timeout = args.upstream_read_timeout
+                api.https_only = args.https_only
+                api.http_if_terminated = args.http_if_terminated
                 self.show(actions.add_api())
 
         except Exception:
@@ -53,14 +64,23 @@ class KongCli:
         status_parser = subparser.add_parser('status', help="Mostra o status do serviço kong")
         status_parser.set_defaults(func=self.status)
 
-        apis_parser = subparser.add_parser('apis', help="Mostra informações sobre as APIs cadastradas")
-        apis_parser.add_argument('--list', action="store_true", default=False, help='Lista apis especificas')
+        apis_parser = subparser.add_parser('apis', choices=['add', 'list', 'delete', 'update'], help="Mostra informações sobre as APIs cadastradas")
         apis_parser.add_argument('--get', dest='name_or_id', help="Lista apis especificas")
-        x = apis_parser.add_argument('create', action="store_true", default=False, help='Adiciona uma api ao kong.')
-        apis_parser.add_argument('--name', help="Nome da API a ser adicionada.")
-        apis_parser.add_argument('--hosts', help="Hosts da APi a ser adicionada.")
-        apis_parser.add_argument('--methods', help="Lista de metodos de acesso a API.")
-        apis_parser.add_argument('--upstream_url', help="Upstream de acesso a API.")
+        # apis_parser.add_argument(dest='-operation', required=True, choices=['add', 'list', 'delete', 'update'],
+        #                          help='Define a ação que vai ser executada.')
+        apis_parser.add_argument('--name', help="")
+        apis_parser.add_argument('--hosts', required=True, help="")
+        apis_parser.add_argument('--uris', help="")
+        apis_parser.add_argument('--methods', help="")
+        apis_parser.add_argument('--upstream_url', help="")
+        apis_parser.add_argument('--strip_uri', action="store_true", default=True, help="")
+        apis_parser.add_argument('--preserve_host', action="store_true", default=False, help="")
+        apis_parser.add_argument('--retries', default=5, help="")
+        apis_parser.add_argument('--upstream_connect_timeout', default=6000, help="")
+        apis_parser.add_argument('--upstream_send_timeout', default=6000, help="")
+        apis_parser.add_argument('--upstream_read_timeout', default=6000, help="")
+        apis_parser.add_argument('--https_only', default=False, help="")
+        apis_parser.add_argument('--http_if_terminated', default=False, help="")
 
         apis_parser.set_defaults(func=self.apis)
 

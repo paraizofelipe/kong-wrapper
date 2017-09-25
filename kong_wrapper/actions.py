@@ -16,9 +16,9 @@ class Actions:
         except Exception:
             raise Exception
 
-    def get_status(self, name_or_id=""):
+    def get_status(self):
         try:
-            request = requests.get(self.url + '/status/' + name_or_id)
+            request = requests.get(self.url + '/status')
             return request.json()
         except Exception:
             raise Exception

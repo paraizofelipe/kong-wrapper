@@ -42,9 +42,9 @@ Commands
  
  $ kong-wcli apis --list
  
- $ kong-wcli apis --list [NAME or ID]
+ $ kong-wcli apis --action list [NAME or ID]
  
- $ kong-wcli apis --create --name '' \
+ $ kong-wcli apis --action add --name '' \
     --hosts '' \
     --uris '' \
     --methods '' \
@@ -58,7 +58,7 @@ Commands
     --https_only '' \
     --http_if_terminated ''
     
- $ kong-wcli apis --update --name '' \
+ $ kong-wcli apis --action update --name '' \
     --hosts '' \
     --uris '' \
     --methods '' \
