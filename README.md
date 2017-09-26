@@ -42,9 +42,9 @@ Commands
  
  $ kong-wcli apis --list
  
- $ kong-wcli apis --action list [NAME or ID]
+ $ kong-wcli apis get [NAME or ID]
  
- $ kong-wcli apis --action add --name '' \
+ $ kong-wcli apis add --name '' \
     --hosts '' \
     --uris '' \
     --methods '' \
@@ -58,7 +58,7 @@ Commands
     --https_only '' \
     --http_if_terminated ''
     
- $ kong-wcli apis --action update --name '' \
+ $ kong-wcli apis update --name '' \
     --hosts '' \
     --uris '' \
     --methods '' \
@@ -72,42 +72,41 @@ Commands
     --https_only '' \
     --http_if_terminated '' \
     
- $ kong-wcli apis --delete [NAME or ID]
+ $ kong-wcli apis delete [NAME or ID]
  
- $ kong-wcli consumers --create --username '' --custom_id ''
+ $ kong-wcli consumers add --username '' --custom_id ''
  
- $ kong-wcli consumers --retrive [NAME or ID]
+ $ kong-wcli consumers get [NAME or ID]
  
- $ kong-wcli consumers --list
+ $ kong-wcli consumers list
  
- $ kong-wcli consumers --update [NAME or ID] --username '' --custom_id ''
+ $ kong-wcli consumers update [NAME or ID] --username '' --custom_id ''
  
- $ kong-wcli consumers --delete [NAME or ID]
+ $ kong-wcli consumers delete [NAME or ID]
  
- $ kong-wcli plugins --add [NAME or ID] --name '' --consumer_id '' --config ''
+ $ kong-wcli plugins add [NAME or ID] --name '' --consumer_id '' --config ''
  
- $ kong-wcli plugins --retrive [ID]
+ $ kong-wcli plugins get [ID]
  
- $ kong-wcli plugins --list
+ $ kong-wcli plugins list
  
- $ kong-wcli plugins --list --api [NAME or ID]
+ $ kong-wcli plugins list api [NAME or ID]
  
- $ kong-wcli plugins --update [NAME or ID] --api [NAME or ID]
+ $ kong-wcli plugins update [NAME or ID] --api [NAME or ID]
  
- $ kong-wcli plugins --delete [NAME or ID] --api [NAME or ID]
+ $ kong-wcli plugins delete [NAME or ID] --api [NAME or ID]
  
- $ kong-wcli plugins --retrive --enable
+ $ kong-wcli plugins enable
  
- $ kong-wcli plugins --schema [NAME or ID]
+ $ kong-wcli plugins schema [NAME or ID]
  
  $ kong-wcli certificates --cert '' --key '' --snis ''
  
- $ kong-wcli certificates --retrive [SNI or ID]
+ $ kong-wcli certificates get [SNI or ID]
  
- $ kong-wcli certificates --list
+ $ kong-wcli certificates list
  
- $ kong-wcli certificates --update [NAME or ID] --cert '' --key '' --snis ''
+ $ kong-wcli certificates update [NAME or ID] --cert '' --key '' --snis ''
  
- $ kong-wcli certificates --delete [NAME or ID]
+ $ kong-wcli certificates delete [NAME or ID]
 ```
-

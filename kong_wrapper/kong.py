@@ -3,15 +3,13 @@ import logging
 import configparser
 import requests
 
-from requests.exceptions import RequestException
-
 
 class Kong:
 
     def __init__(self, conf=None, debug=False):
         self.conf = os.path.abspath(conf or '.')
         self.debu = debug
-        self.from_header = {'Content-type': 'opplication/x-www'}
+        self.form_header = {'Content-type': 'application/x-www-form-urlencoded'}
 
         config = configparser.RawConfigParser()
         config.read(self.conf)
@@ -39,3 +37,18 @@ class Kong:
                 raise r
         except Exception as error:
             raise error
+
+    def post(self, path, json=None, data=''):
+        url = self.get_api_url(path)
+        if json:
+            response = requests.post(url, json=json)
+        else:
+            response = requests.post(url, data=data, headers=self.form_header)
+        if response.ok:
+            return response
+
+    def delete(self, path):
+        url = self.get_api_url(path)
+        response = requests.delete(url)
+        if response.ok:
+            return response

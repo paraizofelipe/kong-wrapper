@@ -89,5 +89,42 @@ def api_add(kong, name, hosts, uris, methods, upstream_url, strip_uri, preserve_
     print(parse_json(response))
 
 
+@apis.command("update")
+@click.argument('name')
+@click.option('--hosts', help="A comma-separated list of domain names that point to your API")
+@click.option('--uris', help="A comma-separated list of URIs prefixes that point to your API.")
+@click.option('--methods', help="A comma-separated list of HTTP methods that point to your API.")
+@click.option('--upstream-url', help="The base target URL that points to your API server. ")
+@click.option('--strip-uri', help="When matching an API via one of the uris prefixes, strip that matching prefix from the upstream URI to be requested. ")
+@click.option('--preserve-host', help="When matching an API via one of the hosts domain names, make sure the request Host header is forwarded to the upstream service.")
+@click.option('--retries', help="The number of retries to execute upon failure to proxy. ")
+@click.option('--upstream-connect-timeout', help="The timeout in milliseconds for establishing a connection to your upstream service. ")
+@click.option('--upstream-send-timeout', help="The timeout in milliseconds between two successive write operations for transmitting a request to your upstream service")
+@click.option('--upstream-read-timeout', help="The timeout in milliseconds between two successive read operations for transmitting a request to your upstream service")
+@click.option('--https-only', help="To be enabled if you wish to only serve an API through HTTPS")
+@click.option('--http-if-terminated', help="Consider the X-Forwarded-Proto header when enforcing HTTPS only traffic")
+@click.pass_obj
+def api_update(kong, name, hosts, uris, methods, upstream_url, strip_uri, preserve_host, retries,
+    upstream_connect_timeout, upstream_send_timeout, upstream_read_timeout, https_only,
+    http_if_terminated):
+    data = cleanup_params(vars(), False)
+    response = kong.patch("/apis/%s" % (name), data=data)
+    print(parse_json(response))
+
+
+@apis.command("delete")
+@click.argument('name')
+@click.pass_obj
+def api_delete(kong, name):
+    response = kong.delete("/apis/%s" % (name))
+    print(parse_json(response))
+
+
+@cli.group()
+@click.pass_obj
+def consumer(kong):
+    pass
+
+
 if __name__ == "__main__":
     cli()
