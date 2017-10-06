@@ -3,7 +3,8 @@ import argparse
 import configparser
 
 from kong_wrapper.actions import Actions
-from kong_wrapper.models.api import Api
+from kong_wrapper.schemas import Api
+
 
 class KongCli:
 
@@ -29,11 +30,16 @@ class KongCli:
 
     def apis(self, args):
         try:
+            api = Api()
             actions = Actions(args.host, args.port)
+
             if args.operation == 'list':
                 self.show(actions.get_list_apis(args.list))
-            if args.operation == 'add':
-                api = Api(args.name, args.hosts, args.upstream_url)
+
+            if args.operation == 'add' or args.operation == 'update':
+                api.name = args.name
+                api.hosts = args.hosts
+                api.upstream_url = args.upstream_url
                 api.uris = args.uris
                 api.methods = args.methods
                 api.strip_uri = args.strip_uri
@@ -44,7 +50,11 @@ class KongCli:
                 api.upstream_read_timeout = args.upstream_read_timeout
                 api.https_only = args.https_only
                 api.http_if_terminated = args.http_if_terminated
-                self.show(actions.add_api())
+
+                if args.operation == 'add':
+                    self.show(actions.add_api())
+                if args.operation == 'update':
+                    self.show(actions.update_api())
 
         except Exception:
             raise Exception
@@ -66,14 +76,20 @@ class KongCli:
 
         apis_parser = subparser.add_parser('apis', help="Mostra informações sobre as APIs cadastradas")
         apis_subparser = apis_parser.add_subparsers(help='commands')
-        get_apis_parse = apis_subparser.add_parser('get', help="")
 
         list_apis_parse = apis_subparser.add_parser('list', help="Lista apis especificas")
+        list_apis_parse.set_defaults(func=self.status)
+
+        get_apis_parse = apis_subparser.add_parser('get', help="")
+        get_apis_parse.add_argument('--id', required=True, help="")
+        get_apis_parse.set_defaults(func=self.status)
+
+        delete_apis_parse = apis_subparser.add_parser('delete', help="")
+        delete_apis_parse.add_argument('--id', required=True, help="")
+        delete_apis_parse.set_defaults(func=self.status)
 
         add_apis_parse = apis_subparser.add_parser('add', help="")
-        name_a = ("--name",)
-        name_k = {"help": ""}
-        add_apis_parse.add_argument(*name_a, **name_k)
+        add_apis_parse.add_argument('--name', required=True, help="")
         add_apis_parse.add_argument('--hosts', required=True, help="")
         add_apis_parse.add_argument('--uris', help="")
         add_apis_parse.add_argument('--methods', help="")
@@ -86,39 +102,28 @@ class KongCli:
         add_apis_parse.add_argument('--upstream_read_timeout', default=6000, help="")
         add_apis_parse.add_argument('--https_only', default=False, help="")
         add_apis_parse.add_argument('--http_if_terminated', default=False, help="")
+        add_apis_parse.set_defaults(func=self.apis)
 
-        delete_apis_parse = apis_subparser.add_parser('delete', help="")
-        delete_apis_parse.add_argument('--name', help="")
-        delete_apis_parse.add_argument('--hosts', required=True, help="")
-        delete_apis_parse.add_argument('--uris', help="")
-        delete_apis_parse.add_argument('--methods', help="")
-        delete_apis_parse.add_argument('--upstream_url', help="")
-        delete_apis_parse.add_argument('--strip_uri', action="store_true", default=True, help="")
-        delete_apis_parse.add_argument('--preserve_host', action="store_true", default=False, help="")
-        delete_apis_parse.add_argument('--retries', default=5, help="")
-        delete_apis_parse.add_argument('--upstream_connect_timeout', default=6000, help="")
-        delete_apis_parse.add_argument('--upstream_send_timeout', default=6000, help="")
-        delete_apis_parse.add_argument('--upstream_read_timeout', default=6000, help="")
-        delete_apis_parse.add_argument('--https_only', default=False, help="")
-        delete_apis_parse.add_argument('--http_if_terminated', default=False, help="")
-
-        delete_apis_parse = apis_subparser.add_parser('update', help="")
-        delete_apis_parse.add_argument('--name', help="")
-        delete_apis_parse.add_argument('--hosts', required=True, help="")
-        delete_apis_parse.add_argument('--uris', help="")
-        delete_apis_parse.add_argument('--methods', help="")
-        delete_apis_parse.add_argument('--upstream_url', help="")
-        delete_apis_parse.add_argument('--strip_uri', action="store_true", default=True, help="")
-        delete_apis_parse.add_argument('--preserve_host', action="store_true", default=False, help="")
-        delete_apis_parse.add_argument('--retries', default=5, help="")
-        delete_apis_parse.add_argument('--upstream_connect_timeout', default=6000, help="")
-        delete_apis_parse.add_argument('--upstream_send_timeout', default=6000, help="")
-        delete_apis_parse.add_argument('--upstream_read_timeout', default=6000, help="")
-        delete_apis_parse.add_argument('--https_only', default=False, help="")
+        update_apis_parse = apis_subparser.add_parser('update', help="")
+        update_apis_parse.add_argument('--id', required=True, help="")
+        update_apis_parse.add_argument('--name', help="")
+        update_apis_parse.add_argument('--hosts', help="")
+        update_apis_parse.add_argument('--uris', help="")
+        update_apis_parse.add_argument('--methods', help="")
+        update_apis_parse.add_argument('--upstream_url', help="")
+        update_apis_parse.add_argument('--strip_uri', action="store_true", default=True, help="")
+        update_apis_parse.add_argument('--preserve_host', action="store_true", default=False, help="")
+        update_apis_parse.add_argument('--retries', default=5, help="")
+        update_apis_parse.add_argument('--upstream_connect_timeout', default=6000, help="")
+        update_apis_parse.add_argument('--upstream_send_timeout', default=6000, help="")
+        update_apis_parse.add_argument('--upstream_read_timeout', default=6000, help="")
+        update_apis_parse.add_argument('--https_only', default=False, help="")
+        add_apis_parse.set_defaults(func=self.status)
 
         apis_parser.set_defaults(func=self.apis)
 
-        args = parser.parse_args()
+        api = Api()
+        args = parser.parse_args(namespace=api)
 
         try:
             args.func(args)

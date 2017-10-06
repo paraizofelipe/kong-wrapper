@@ -34,45 +34,56 @@ TBD
 
 Commands
 -------
+
+#### Server Management
 ```cmd 
 
  $ kong-wcli all-confs
  
  $ kong-wcli status
+```
+
+#### API Management
+```cmd
  
- $ kong-wcli apis --list
+ $ kong-wcli apis list
  
  $ kong-wcli apis get [NAME or ID]
  
- $ kong-wcli apis add --name '' \
-    --hosts '' \
-    --uris '' \
-    --methods '' \
-    --upstream_url '' \
-    --strip_uri '' \
-    --preserve_host '' \
-    --retries '' \
-    --upstream_connect_timeout '' \
-    --upstream_send_timeout '' \
-    --upstream_read_timeout '' \
-    --https_only '' \
-    --http_if_terminated ''
+ $ kong-wcli apis delete [NAME or ID]
+ 
+ $ kong-wcli apis add --name [NAME] \
+  --hosts HOSTS
+  --uris URIS
+  --methods METHODS
+  --upstream_url UPSTREAM_URL
+  --strip_uri
+  --preserve_host
+  --retries RETRIES
+  --upstream_connect_timeout UPSTREAM_CONNECT_TIMEOUT
+  --upstream_send_timeout UPSTREAM_SEND_TIMEOUT
+  --upstream_read_timeout UPSTREAM_READ_TIMEOUT
+  --https_only HTTPS_ONLY
+  --http_if_terminated HTTP_IF_TERMINATED
     
  $ kong-wcli apis update --name '' \
-    --hosts '' \
-    --uris '' \
-    --methods '' \
-    --upstream_url '' \
-    --strip_uri '' \
-    --preserve_host '' \
-    --retries '' \
-    --upstream_connect_timeout '' \
-    --upstream_send_timeout '' \
-    --upstream_read_timeout '' \
-    --https_only '' \
-    --http_if_terminated '' \
-    
- $ kong-wcli apis delete [NAME or ID]
+  --hosts HOSTS
+  --uris URIS
+  --methods METHODS
+  --upstream_url UPSTREAM_URL
+  --strip_uri
+  --preserve_host
+  --retries RETRIES
+  --upstream_connect_timeout UPSTREAM_CONNECT_TIMEOUT
+  --upstream_send_timeout UPSTREAM_SEND_TIMEOUT
+  --upstream_read_timeout UPSTREAM_READ_TIMEOUT
+  --https_only HTTPS_ONLY
+  --http_if_terminated HTTP_IF_TERMINATED
+ 
+```
+
+#### Consumers Management
+```cmd
  
  $ kong-wcli consumers add --username '' --custom_id ''
  
@@ -83,7 +94,11 @@ Commands
  $ kong-wcli consumers update [NAME or ID] --username '' --custom_id ''
  
  $ kong-wcli consumers delete [NAME or ID]
- 
+```
+
+#### Plugins Management
+```cmd
+
  $ kong-wcli plugins add [NAME or ID] --name '' --consumer_id '' --config ''
  
  $ kong-wcli plugins get [ID]
@@ -99,7 +114,11 @@ Commands
  $ kong-wcli plugins enable
  
  $ kong-wcli plugins schema [NAME or ID]
- 
+```
+
+#### Certificates Management
+```cmd
+
  $ kong-wcli certificates --cert '' --key '' --snis ''
  
  $ kong-wcli certificates get [SNI or ID]

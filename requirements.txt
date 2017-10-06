@@ -1,9 +1,5 @@
 # Dev/Deployment
 requests
-click
-sphinx
 simplejson
-sphinx_rtd_theme
-nose
-coverage
-pypi-publisher
+marshmallow
+fire
