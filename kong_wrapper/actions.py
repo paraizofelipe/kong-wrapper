@@ -1,5 +1,7 @@
 import requests
-from kong_wrapper.schemas import ApiSchema, ComsumerSchema, CertificateSchema, UpstreamSchema, PluginSchema
+from kong_wrapper.schemas import (
+    ApiSchema, ComsumerSchema, CertificateSchema, UpstreamSchema, PluginSchema
+)
 
 
 class RequestCRUD:

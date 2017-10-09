@@ -2,3 +2,4 @@
 requests
 simplejson
 marshmallow
+pygments

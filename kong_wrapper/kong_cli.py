@@ -1,8 +1,15 @@
 import argparse
 import simplejson as json
+from kong_wrapper.utils import read_conf
+from pygments import highlight, lexers, formatters
 from kong_wrapper.actions import (
     ServerActions, ApisActions, ComsumersActions, CertificatesActions, SnisActions, UpstreamsActions, PluginsActions
 )
+
+
+def show_json(json):
+    colorful_json = highlight(json.encode('UTF-8'), lexers.JsonLexer(), formatters.TerminalFormatter())
+    print(colorful_json)
 
 
 def main():
@@ -11,8 +18,8 @@ def main():
 
     subparser = parser.add_subparsers(help="Commands")
 
-    parser.add_argument("-ht", "--host", required=True, help="Host de acesso ou Kong")
-    parser.add_argument("-pt", "--port", required=True, help="Porta de acesso ao host")
+    parser.add_argument("-ht", "--host", help="Host de acesso ou Kong")
+    parser.add_argument("-pt", "--port", help="Porta de acesso ao host")
 
     all_config_parser = subparser.add_parser('all-confs', help="Show all configurats of Kong.")
     all_config_parser.set_defaults(func=ServerActions().all_confs)
@@ -196,9 +203,24 @@ def main():
     args = parser.parse_args()
 
     try:
-        result_request = args.func(args)
-        result_request = json.dumps(result_request, sort_keys=True, indent=True)
-        print(result_request)
+        cli_conf = read_conf('default')
+        if not args.host or not args.port:
+            if cli_conf and cli_conf["host"] and cli_conf["port"]:
+                args.host = cli_conf["host"]
+                args.port = cli_conf["port"]
+
+                try:
+                    result_request = args.func(args)
+                    result_request = json.dumps(result_request, sort_keys=True, indent=True)
+                    # print(result_request)
+                    show_json(result_request)
+                except Exception as error:
+                    raise error
+
+            else:
+                raise argparse.ArgumentError(subparser, "host and port values have not been defined.")
+    except FileNotFoundError:
+        print('The file ".kong" not found in directory "home" of user!')
     except Exception as error:
         raise error
 
