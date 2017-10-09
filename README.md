@@ -48,9 +48,9 @@ Commands
  
  $ kong-wcli apis list
  
- $ kong-wcli apis list [NAME or ID]
+ $ kong-wcli apis list --id [NAME or ID]
  
- $ kong-wcli apis delete [NAME or ID]
+ $ kong-wcli apis delete --id [NAME or ID]
  
  $ kong-wcli apis add --name [NAME] \
   --hosts HOSTS \
@@ -87,13 +87,13 @@ Commands
  
  $ kong-wcli consumers add --username '' --custom_id ''
  
- $ kong-wcli consumers list [NAME or ID]
+ $ kong-wcli consumers list --id [NAME or ID]
  
  $ kong-wcli consumers list
  
- $ kong-wcli consumers update [NAME or ID] --username '' --custom_id ''
+ $ kong-wcli consumers update --id [NAME or ID] --username '' --custom_id ''
  
- $ kong-wcli consumers delete [NAME or ID]
+ $ kong-wcli consumers delete --id [NAME or ID]
 ```
 
 #### Plugins Management
@@ -101,7 +101,7 @@ Commands
 
  $ kong-wcli plugins add [NAME or ID] --name '' --consumer_id '' --config ''
  
- $ kong-wcli plugins get [ID]
+ $ kong-wcli plugins list [ID]
  
  $ kong-wcli plugins list
  
@@ -119,13 +119,55 @@ Commands
 #### Certificates Management
 ```cmd
 
- $ kong-wcli certificates --cert '' --key '' --snis ''
+ $ kong-wcli certs add --cert '' --key '' --snis ''
  
- $ kong-wcli certificates get [SNI or ID]
+ $ kong-wcli certs list --id [SNI or ID]
  
- $ kong-wcli certificates list
+ $ kong-wcli certs list
  
- $ kong-wcli certificates update [NAME or ID] --cert '' --key '' --snis ''
+ $ kong-wcli certs update --id [NAME or ID] --cert '' --key '' --snis ''
  
- $ kong-wcli certificates delete [NAME or ID]
+ $ kong-wcli certs delete --id [NAME or ID]
+```
+
+#### SNI Management
+```cmd
+
+ $ kong-wcli certs add --name '' --ssl-certificate-id ''
+ 
+ $ kong-wcli certs list --id [SNI or ID]
+ 
+ $ kong-wcli certs list
+ 
+ $ kong-wcli certs update --id [NAME or ID] --name '' --ssl-certificate-id ''
+ 
+ $ kong-wcli certs delete --id [NAME or ID]
+```
+
+#### SNIs Management
+```cmd
+
+ $ kong-wcli snis add --name '' --ssl-certificate-id ''
+ 
+ $ kong-wcli snis list --id [SNI or ID]
+ 
+ $ kong-wcli snis list
+ 
+ $ kong-wcli snis update --id [NAME or ID] --name '' --ssl-certificate-id ''
+ 
+ $ kong-wcli snis delete --id [NAME or ID]
+```
+
+####  Upstreams Management
+```cmd
+
+ $ kong-wcli upstream add --name '' --slots '' --orderlist ''
+ 
+ $ kong-wcli upstream list --id [SNI or ID]
+ 
+ $ kong-wcli upstream list
+ 
+ $ kong-wcli upstream update --id [NAME or ID] --name '' --slots '' --orderlist ''
+ 
+ $ kong-wcli upstream delete --id [NAME or ID]
 ```

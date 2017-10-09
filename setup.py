@@ -41,5 +41,8 @@ setup(
     author='Felipe Paraizo',
     install_requires=install_requires,
     dependency_links=dependency_links,
-    author_email='felipeparaizo@gmail.com'
+    author_email='felipeparaizo@gmail.com',
+    entry_points={
+        'console_scripts': ['kong-wcli=kong_wrapper.kong_cli:main']
+    }
 )
