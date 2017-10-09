@@ -20,7 +20,7 @@ class ApiSchema(Schema):
     created_at = fields.Integer()
 
 
-class ComsumersSchema(Schema):
+class ComsumerSchema(Schema):
 
     id = fields.String()
     usernam = fields.String()
