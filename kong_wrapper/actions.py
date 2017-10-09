@@ -1,5 +1,5 @@
 import requests
-from kong_wrapper.schemas import ApiSchema, ComsumersSchema
+from kong_wrapper.schemas import ApiSchema, ComsumerSchema, CertificateSchema, UpstreamSchema, PluginSchema
 
 
 class RequestCRUD:
@@ -69,9 +69,97 @@ class ApisActions(RequestCRUD):
         self.endpoint = 'apis'
         self.schema = ApiSchema()
 
+    def add_plugin(self, args):
+        try:
+            url = 'http://{}:{}/{}/plugins'.format(args.host, args.port, self.endpoint)
+            plugin, errors = self.schema.dump(args)
+            response = requests.post(url, plugin)
+            return response.json()
+        except Exception as error:
+            raise error
+
+    def list_plugin(self, args):
+        try:
+            url = 'http://{}:{}/{}/plugins'.format(args.host, args.port, self.endpoint)
+            response = requests.get(url)
+            return response.json()
+        except Exception as error:
+            raise error
+
+    def update_plugin(self, args):
+        try:
+            url = 'http://{}:{}/{}/plugins/{}'.format(args.host, args.port, self.endpoint, args.id)
+            plugin, errors = self.schema.dump(args)
+            response = requests.patch(url, plugin)
+            return response.json()
+        except Exception as error:
+            raise error
+
+    def delete_plugin(self, args):
+        try:
+            url = 'http://{}:{}/{}/plugins/{}'.format(args.host, args.port, self.endpoint, args.id)
+            response = requests.delete(url)
+            return response.json()
+        except Exception as error:
+            raise error
+
+
+class PluginsActions(ApisActions):
+
+    def __init__(self):
+        super().__init__()
+        self.endpoint = 'plugins'
+        self.schema = PluginSchema()
+
+    def add(self, args):
+        pass
+
+    def delete(self, args):
+        pass
+
+    def update(self, args):
+        pass
+
+    def enabled(self, args):
+        try:
+            url = 'http://{}:{}/{}/enabled'.format(args.host, args.port, self.endpoint)
+            response = requests.get(url)
+            return response.json()
+        except Exception as error:
+            raise error
+
+    def schema(self, args):
+        try:
+            url = 'http://{}:{}/{}/schema/{}'.format(args.host, args.port, self.endpoint, args.id)
+            response = requests.get(url)
+            return response.json()
+        except Exception as error:
+            raise error
+
 
 class ComsumersActions(RequestCRUD):
 
     def __init__(self):
         self.endpoint = 'consumers'
-        self.schema = ComsumersSchema()
+        self.schema = ComsumerSchema()
+
+
+class CertificatesActions(RequestCRUD):
+
+    def __init__(self):
+        self.endpoint = 'certificates'
+        self.schema = CertificateSchema()
+
+
+class SnisActions(RequestCRUD):
+
+    def __init__(self):
+        self.endpoint = 'snis'
+        self.schema = CertificateSchema()
+
+
+class UpstreamsActions(RequestCRUD):
+
+    def __init__(self):
+        self.endpoint = 'upstreams'
+        self.schema = UpstreamSchema()
