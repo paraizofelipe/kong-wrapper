@@ -1,7 +1,7 @@
 from marshmallow import Schema, fields
 
 
-class Api(Schema):
+class ApiSchema(Schema):
 
     id = fields.String()
     name = fields.String()
@@ -20,7 +20,7 @@ class Api(Schema):
     created_at = fields.Integer()
 
 
-class Comsumers(Schema):
+class ComsumersSchema(Schema):
 
     id = fields.String()
     usernam = fields.String()
@@ -28,7 +28,7 @@ class Comsumers(Schema):
     created_at = fields.Integer()
 
 
-class Plugin(Schema):
+class PluginSchema(Schema):
 
     id = fields.String()
     api_id = fields.String()
@@ -39,23 +39,23 @@ class Plugin(Schema):
     created_at = fields.Integer()
 
 
-class Sni(Schema):
+class SniSchema(Schema):
 
     name = fields.String()
     ssl_certificate_id = fields.String()
     created_at = fields.Integer()
 
 
-class Certificate(Schema):
+class CertificateSchema(Schema):
 
     id = fields.String()
     cert = fields.String()
     key = fields.String()
-    snis = fields.Nested(Sni)
+    snis = fields.Nested(SniSchema)
     created_at = fields.Integer()
 
 
-class Upstream(Schema):
+class UpstreamSchema(Schema):
 
     id = fields.String()
     name = fields.String()
@@ -64,7 +64,7 @@ class Upstream(Schema):
     created_at = fields.Integer()
 
 
-class Target(Schema):
+class TargetSchema(Schema):
 
     id = fields.String()
     target = fields.String()

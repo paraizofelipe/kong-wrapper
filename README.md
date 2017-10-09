@@ -48,36 +48,36 @@ Commands
  
  $ kong-wcli apis list
  
- $ kong-wcli apis get [NAME or ID]
+ $ kong-wcli apis list [NAME or ID]
  
  $ kong-wcli apis delete [NAME or ID]
  
  $ kong-wcli apis add --name [NAME] \
-  --hosts HOSTS
-  --uris URIS
-  --methods METHODS
-  --upstream_url UPSTREAM_URL
-  --strip_uri
-  --preserve_host
-  --retries RETRIES
-  --upstream_connect_timeout UPSTREAM_CONNECT_TIMEOUT
-  --upstream_send_timeout UPSTREAM_SEND_TIMEOUT
-  --upstream_read_timeout UPSTREAM_READ_TIMEOUT
-  --https_only HTTPS_ONLY
+  --hosts HOSTS \
+  --uris URIS \
+  --methods METHODS \
+  --upstream_url UPSTREAM_URL \
+  --strip_uri \
+  --preserve_host \
+  --retries RETRIES \
+  --upstream_connect_timeout UPSTREAM_CONNECT_TIMEOUT \
+  --upstream_send_timeout UPSTREAM_SEND_TIMEOUT \
+  --upstream_read_timeout UPSTREAM_READ_TIMEOUT \
+  --https_only HTTPS_ONLY \
   --http_if_terminated HTTP_IF_TERMINATED
     
  $ kong-wcli apis update --name '' \
-  --hosts HOSTS
-  --uris URIS
-  --methods METHODS
-  --upstream_url UPSTREAM_URL
-  --strip_uri
-  --preserve_host
-  --retries RETRIES
-  --upstream_connect_timeout UPSTREAM_CONNECT_TIMEOUT
-  --upstream_send_timeout UPSTREAM_SEND_TIMEOUT
-  --upstream_read_timeout UPSTREAM_READ_TIMEOUT
-  --https_only HTTPS_ONLY
+  --hosts HOSTS \
+  --uris URIS \
+  --methods METHODS \
+  --upstream_url UPSTREAM_URL \
+  --strip_uri \
+  --preserve_host \
+  --retries RETRIES \
+  --upstream_connect_timeout UPSTREAM_CONNECT_TIMEOUT \
+  --upstream_send_timeout UPSTREAM_SEND_TIMEOUT \
+  --upstream_read_timeout UPSTREAM_READ_TIMEOUT \
+  --https_only HTTPS_ONLY \
   --http_if_terminated HTTP_IF_TERMINATED
  
 ```
@@ -87,7 +87,7 @@ Commands
  
  $ kong-wcli consumers add --username '' --custom_id ''
  
- $ kong-wcli consumers get [NAME or ID]
+ $ kong-wcli consumers list [NAME or ID]
  
  $ kong-wcli consumers list
  
