@@ -40,7 +40,10 @@ class RequestCRUD:
         try:
             url = 'http://{}:{}/{}/{}'.format(args.host, args.port, self.endpoint, args.id)
             response = requests.delete(url)
-            return response.json()
+            if response.status_code == 404:
+                return response.json()
+            if response.status_code == 204:
+                return {"message": "Deleted"}
         except Exception as error:
             raise error
 
