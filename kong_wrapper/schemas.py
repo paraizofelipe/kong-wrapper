@@ -23,7 +23,7 @@ class ApiSchema(Schema):
 class ComsumerSchema(Schema):
 
     id = fields.String()
-    usernam = fields.String()
+    username = fields.String()
     custom_id = fields.String()
     created_at = fields.Integer()
 
@@ -31,7 +31,7 @@ class ComsumerSchema(Schema):
 class PluginSchema(Schema):
 
     id = fields.String()
-    api_id = fields.String()
+    # api_id = fields.String()
     consumer_id = fields.String()
     name = fields.String()
     config = fields.Dict()

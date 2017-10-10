@@ -104,28 +104,27 @@ def main():
     list_plugins_parse.add_argument('--id', default='', help="")
     list_plugins_parse.set_defaults(func=PluginsActions().list)
 
-    list_plugins_parse = plugins_subparser.add_parser('enabled', help="")
-    list_plugins_parse.set_defaults(func=PluginsActions().enabled)
+    enabled_plugins_parse = plugins_subparser.add_parser('enabled', help="")
+    enabled_plugins_parse.set_defaults(func=PluginsActions().enabled)
 
-    list_plugins_parse = plugins_subparser.add_parser('enabled', help="")
-    list_plugins_parse.add_argument('--name', required=True, help="")
-    list_plugins_parse.set_defaults(func=PluginsActions().enabled)
+    schema_plugins_parse = plugins_subparser.add_parser('schema', help="")
+    schema_plugins_parse.add_argument('--name', required=True, help="")
+    schema_plugins_parse.set_defaults(func=PluginsActions().get_schema)
 
     add_plugins_parse = plugins_subparser.add_parser('add', help="")
     add_plugins_parse.add_argument('--api-id', required=True, default='', help="")
     add_plugins_parse.add_argument('--name', required=True, help="")
-    add_plugins_parse.add_argument('--consumer-id', required=True, help="")
-    # TODO verificar uso de property
-    # ** add_plugins_parse.add_argument('--config', required=True, help="") **
-    list_plugins_parse.set_defaults(func=PluginsActions().add_plugin)
+    add_plugins_parse.add_argument('--consumer-id', help="")
+    add_plugins_parse.add_argument('--config', '-c', required=True, action='append', dest='config', help="")
+    add_plugins_parse.set_defaults(func=PluginsActions().add)
 
-    add_plugins_parse = plugins_subparser.add_parser('update', help="")
-    add_plugins_parse.add_argument('--api-id', required=True, default='', help="")
-    add_plugins_parse.add_argument('--name', required=True, help="")
-    add_plugins_parse.add_argument('--consumer-id', required=True, help="")
-    # TODO verificar uso de property
-    # ** add_plugins_parse.add_argument('--config', required=True, help="") **
-    list_plugins_parse.set_defaults(func=PluginsActions().update_plugin)
+    update_plugins_parse = plugins_subparser.add_parser('update', help="")
+    update_plugins_parse.add_argument('--id', required=True, help="")
+    update_plugins_parse.add_argument('--api-id', required=True, default='', help="")
+    update_plugins_parse.add_argument('--name', required=True, help="")
+    update_plugins_parse.add_argument('--consumer-id', help="")
+    update_plugins_parse.add_argument('--config', '-c', required=True, action='append', dest='config', help="")
+    update_plugins_parse.set_defaults(func=PluginsActions().update)
 
     # ----CERTIFICATES----
 
