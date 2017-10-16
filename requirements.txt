@@ -3,3 +3,4 @@ requests
 simplejson
 marshmallow
 pygments
+PyYAML

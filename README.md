@@ -130,20 +130,6 @@ Commands
  $ kong-wcli certs delete --id [NAME or ID]
 ```
 
-#### SNI Management
-```cmd
-
- $ kong-wcli certs add --name '' --ssl-certificate-id ''
- 
- $ kong-wcli certs list --id [SNI or ID]
- 
- $ kong-wcli certs list
- 
- $ kong-wcli certs update --id [NAME or ID] --name '' --ssl-certificate-id ''
- 
- $ kong-wcli certs delete --id [NAME or ID]
-```
-
 #### SNIs Management
 ```cmd
 

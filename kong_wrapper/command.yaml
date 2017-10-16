@@ -1,0 +1,86 @@
+description: Kong wrapper CLI
+arguments:
+  - { name: --host, help: '' }
+  - { name: --port, help: '' }
+
+commands:
+  - name: api
+    help: ''
+    subcommands:
+      - name: list
+        help: ''
+        arguments:
+          - name: --id
+            params: { help: '', default: ''}
+      - name: delete
+        help: ''
+        arguments:
+          - name: --id
+            params: { help: '', default: ''}
+      - name: update
+        help: ''
+        arguments:
+          - name: --id
+            params: { help: '', default: ''}
+          - define: api
+      - name: add
+        help: ''
+        arguments:
+          - define: api
+#      - name: deleteme
+#      - name: update
+#      - name: list
+define:
+    - api:
+        arguments:
+          - name: --name
+            params: { required: true, help: '' }
+
+          - name: --hosts
+            params: { required: true, help: '' }
+
+          - name: --uris
+            params: { help: '' }
+
+          - name: --methods
+            params: { help: '' }
+
+          - name: --upstream_url
+            params: { required: true, help: '' }
+
+          - name: --strip_uri
+            params: { action: store_true, help: '' }
+
+          - name: --preserve_host
+            params: { action: store_true, help: '' }
+
+          - name: --retries
+            params: { default: 5, help: '' }
+
+          - name: --upstream_connect_timeout
+            params: { default: 6000, help: '' }
+
+          - name: --upstream_send_timeout
+            params: { default: 6000, help: '' }
+
+          - name: --upstream_read_timeout
+            params: { default: 6000, help: '' }
+
+          - name: --https_only
+            params: { default: false, help: '' }
+
+          - name: --http_if_terminated
+            params: { default: false, help: '' }
+    - plugin:
+        arguments:
+          - name: --api-id,
+            params: { help: '' }
+
+          - name: --name,
+            params: { help: '' }
+
+          - name: --consument-id,
+            params: { help: '' }
+
+          - name: --config,
+            params: { help: '' }
