@@ -6,6 +6,7 @@ arguments:
 commands:
   - name: api
     help: ''
+    actions: !!python/object/new:kong_wrapper.actions.ApisActions []
     subcommands:
       - name: list
         help: ''
@@ -27,9 +28,40 @@ commands:
         help: ''
         arguments:
           - define: api
-#      - name: deleteme
-#      - name: update
-#      - name: list
+  - name: plugin
+    help: ''
+    actions: !!python/object/new:kong_wrapper.actions.PluginsActions []
+    subcommands:
+      - name : enabled
+        help: ''
+      - name : schema
+        exec: get_schema
+        help: ''
+        arguments:
+          - name: --name
+            params: { help: '', required: true }
+      - name: list
+        help: ''
+        arguments:
+          - name: --id
+            params: { help: '', default: '' }
+      - name: delete
+        help: ''
+        arguments:
+          - name: --id
+            params: { help: '', default: '' }
+      - name: update
+        help: ''
+        arguments:
+          - name: --id
+            params: { help: '', default: ''}
+          - define: plugin
+      - name: add
+        help: ''
+        arguments:
+          - define: plugin
+
+
 define:
     - api:
         arguments:
