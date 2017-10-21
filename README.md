@@ -2,7 +2,6 @@
 
 KONG Wrapper CLI
 ===============================
-<br>
 * version number: 1.0.0
 * author: Felipe Paraizo
 
