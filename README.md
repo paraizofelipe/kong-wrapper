@@ -1,8 +1,10 @@
-![donkey-kong](https://orig00.deviantart.net/b694/f/2013/018/0/5/1donkeykong_by_camdencc-d5rwxvz.gif =150x) KONG WRAPPER
-===============================
+<img src="https://orig00.deviantart.net/b694/f/2013/018/0/5/1donkeykong_by_camdencc-d5rwxvz.gif" width="115px" align="left"/>
 
-version number: 1.0.0
-author: Felipe Paraizo
+KONG Wrapper CLI
+===============================
+<br>
+* version number: 1.0.0
+* author: Felipe Paraizo
 
 Overview
 --------
